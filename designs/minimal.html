@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;800&display=swap" rel="stylesheet">
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	html, body { width: 100vw; height: 100vh; overflow: hidden; }
+	body {
+		font-family: 'Inter', system-ui, sans-serif;
+		background: #ffffff;
+		color: #111827;
+	}
+	.stage {
+		width: 100vw;
+		height: 100vh;
+		padding: 6vw 7vw;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.brand { display: flex; align-items: center; gap: 1.4vw; }
+	.brand img { height: 4vw; width: auto; }
+	.brand span { font-size: 1.9vw; font-weight: 600; color: #6b7280; }
+	.main { max-width: 86vw; }
+	h1 {
+		font-weight: 800;
+		line-height: 1.1;
+		letter-spacing: -0.02em;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	h1.title-l  { font-size: 6.6vw; }
+	h1.title-m  { font-size: 5.6vw; }
+	h1.title-s  { font-size: 4.7vw; }
+	h1.title-xs { font-size: 4vw; }
+	.underline {
+		width: 12vw;
+		height: 0.8vw;
+		border-radius: 0.4vw;
+		background: {{accent_color}};
+		margin-top: 2.4vw;
+	}
+	.footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 1.8vw;
+		color: #6b7280;
+	}
+</style>
+</head>
+<body>
+	<div class="stage">
+		<div class="brand">
+			{{#logo}}<img src="{{logo}}" alt="">{{/logo}}
+			{{#site_name}}<span>{{site_name}}</span>{{/site_name}}
+		</div>
+		<div class="main">
+			<h1 class="{{title_class}}">{{title}}</h1>
+			<div class="underline"></div>
+		</div>
+		<div class="footer">
+			<span>{{#author}}{{author}} &middot; {{/author}}{{date}}</span>
+		</div>
+	</div>
+</body>
+</html>

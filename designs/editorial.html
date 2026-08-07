@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	html, body { width: 100vw; height: 100vh; overflow: hidden; }
+	body {
+		font-family: 'Inter', system-ui, sans-serif;
+		background: #faf7f2;
+		color: #1c1917;
+	}
+	.stage {
+		width: 100vw;
+		height: 100vh;
+		padding: 5vw 7vw;
+		display: flex;
+		flex-direction: column;
+	}
+	.top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-bottom: 2.2vw;
+		border-bottom: 0.16vw solid #1c1917;
+	}
+	.kicker {
+		font-size: 1.7vw;
+		font-weight: 600;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+	}
+	.top img { height: 3.4vw; width: auto; }
+	.middle {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	h1 {
+		font-family: 'Source Serif 4', Georgia, serif;
+		font-weight: 700;
+		line-height: 1.14;
+		letter-spacing: -0.01em;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	h1.title-l  { font-size: 6vw; }
+	h1.title-m  { font-size: 5.1vw; }
+	h1.title-s  { font-size: 4.3vw; }
+	h1.title-xs { font-size: 3.7vw; }
+	.excerpt {
+		margin-top: 2vw;
+		font-size: 2vw;
+		line-height: 1.5;
+		color: #57534e;
+		max-width: 74vw;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-top: 2.2vw;
+		border-top: 0.08vw solid #d6d3d1;
+		font-size: 1.8vw;
+		color: #57534e;
+	}
+	.byline strong { color: #1c1917; font-weight: 600; }
+	.mark { width: 4.5vw; height: 0.5vw; background: {{accent_color}}; }
+</style>
+</head>
+<body>
+	<div class="stage">
+		<div class="top">
+			{{#site_name}}<div class="kicker">{{site_name}}</div>{{/site_name}}
+			{{^site_name}}<div class="kicker">&nbsp;</div>{{/site_name}}
+			{{#logo}}<img src="{{logo}}" alt="">{{/logo}}
+		</div>
+		<div class="middle">
+			<h1 class="{{title_class}}">{{title}}</h1>
+			{{#excerpt}}<p class="excerpt">{{excerpt}}</p>{{/excerpt}}
+		</div>
+		<div class="bottom">
+			<div class="byline">{{#author}}<strong>{{author}}</strong> &middot; {{/author}}{{date}}</div>
+			<div class="mark"></div>
+		</div>
+	</div>
+</body>
+</html>

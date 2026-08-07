@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	html, body { width: 100vw; height: 100vh; overflow: hidden; }
+	body {
+		font-family: 'Inter', system-ui, sans-serif;
+		background: {{background_color}};
+		color: #f8fafc;
+		position: relative;
+	}
+	.glow-a, .glow-b {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(6vw);
+		opacity: 0.35;
+	}
+	.glow-a { width: 46vw; height: 46vw; background: {{accent_color}}; top: -24vw; right: -12vw; }
+	.glow-b { width: 36vw; height: 36vw; background: {{accent_color}}; bottom: -22vw; left: -10vw; opacity: 0.18; }
+	.stage {
+		position: relative;
+		width: 100vw;
+		height: 100vh;
+		padding: 6vw 7vw;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	.brand { display: flex; align-items: center; gap: 1.4vw; }
+	.brand img { height: 4.2vw; width: auto; }
+	.brand span {
+		font-size: 2vw;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: #cbd5e1;
+	}
+	.headline-wrap { display: flex; gap: 2.6vw; align-items: stretch; }
+	.bar { width: 0.7vw; border-radius: 0.35vw; background: {{accent_color}}; flex: none; }
+	h1 {
+		font-family: 'Sora', 'Inter', sans-serif;
+		font-weight: 700;
+		line-height: 1.12;
+		letter-spacing: -0.015em;
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	h1.title-l  { font-size: 6.4vw; }
+	h1.title-m  { font-size: 5.4vw; }
+	h1.title-s  { font-size: 4.6vw; }
+	h1.title-xs { font-size: 3.9vw; }
+	.meta { display: flex; align-items: center; gap: 1.2vw; font-size: 1.9vw; color: #94a3b8; }
+	.meta .dot { width: 0.5vw; height: 0.5vw; border-radius: 50%; background: {{accent_color}}; }
+</style>
+</head>
+<body>
+	<div class="glow-a"></div>
+	<div class="glow-b"></div>
+	<div class="stage">
+		<div class="brand">
+			{{#logo}}<img src="{{logo}}" alt="">{{/logo}}
+			{{#site_name}}<span>{{site_name}}</span>{{/site_name}}
+		</div>
+		<div class="headline-wrap">
+			<div class="bar"></div>
+			<h1 class="{{title_class}}">{{title}}</h1>
+		</div>
+		<div class="meta">
+			{{#author}}<span>{{author}}</span><span class="dot"></span>{{/author}}
+			<span>{{date}}</span>
+		</div>
+	</div>
+</body>
+</html>

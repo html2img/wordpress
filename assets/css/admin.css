@@ -1,0 +1,60 @@
+/* Settings and tools screens. */
+
+.html2img-settings .html2img-seo-line {
+	padding: 8px 12px;
+	background: #f0f6fc;
+	border-left: 4px solid #72aee6;
+	max-width: 720px;
+}
+
+.html2img-preview-frame {
+	width: 600px;
+	height: 315px;
+	overflow: hidden;
+	border: 1px solid #c3c4c7;
+	border-radius: 2px;
+	background: #fff;
+}
+
+.html2img-preview-frame iframe {
+	width: 1200px;
+	height: 630px;
+	border: 0;
+	transform: scale(0.5);
+	transform-origin: 0 0;
+	pointer-events: none;
+}
+
+.html2img-warning {
+	padding: 8px 12px;
+	background: #fcf9e8;
+	border-left: 4px solid #dba617;
+	max-width: 640px;
+}
+
+.html2img-log {
+	max-width: 900px;
+	margin-top: 8px;
+}
+
+.html2img-progress-track {
+	width: 100%;
+	max-width: 640px;
+	height: 16px;
+	background: #dcdcde;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.html2img-progress-bar {
+	height: 100%;
+	background: #2271b1;
+	transition: width 0.3s ease;
+}
+
+#html2img-logo-preview img {
+	max-width: 200px;
+	height: auto;
+	display: block;
+	margin-bottom: 8px;
+}
