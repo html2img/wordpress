@@ -26,6 +26,17 @@ class Yoast {
 		add_filter( 'wpseo_twitter_image', [ __CLASS__, 'image_url' ] );
 		add_filter( 'wpseo_opengraph_image_width', [ __CLASS__, 'image_width' ] );
 		add_filter( 'wpseo_opengraph_image_height', [ __CLASS__, 'image_height' ] );
+		add_filter( 'wpseo_opengraph_image_type', [ __CLASS__, 'image_type' ] );
+	}
+
+	/**
+	 * Filter callback for og:image:type. The generated image is always PNG.
+	 *
+	 * @param string $type Current value.
+	 * @return string
+	 */
+	public static function image_type( $type ) {
+		return null === self::image() ? $type : 'image/png';
 	}
 
 	/**
