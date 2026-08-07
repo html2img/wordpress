@@ -1,0 +1,17 @@
+.distignore
+.git
+.gitignore
+.phpcs-cache
+.phpunit.result.cache
+PLAN.md
+HANDOVER.md
+README.md
+composer.json
+composer.lock
+handover
+node_modules
+phpcs.xml.dist
+phpunit.xml.dist
+tests
+vendor
+assets-wporg

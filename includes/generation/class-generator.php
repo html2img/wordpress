@@ -34,22 +34,46 @@ class Generator {
 	 * @return bool
 	 */
 	public static function needs_render( $post_id ) {
-		$stored_hash = (string) get_post_meta( $post_id, Post_Meta::CONTENT_HASH, true );
-		$stored_fp   = (string) get_post_meta( $post_id, Post_Meta::FINGERPRINT, true );
+		return self::decide(
+			(string) get_post_meta( $post_id, Post_Meta::CONTENT_HASH, true ),
+			(string) get_post_meta( $post_id, Post_Meta::FINGERPRINT, true ),
+			static function () use ( $post_id ) {
+				return Payload::content_hash( $post_id );
+			},
+			static function () {
+				return Designs::fingerprint();
+			},
+			'' !== Post_Meta::image_url( $post_id )
+		);
+	}
 
-		if ( '' === $stored_hash || '' === $stored_fp ) {
+	/**
+	 * The regeneration decision itself, free of WordPress state.
+	 *
+	 * Current values arrive as callables so the cheap checks run first and
+	 * hashing only happens when it can still change the answer.
+	 *
+	 * @param string   $stored_hash        Content hash from the last render.
+	 * @param string   $stored_fingerprint Design fingerprint from the last render.
+	 * @param callable $current_hash       Returns the content hash for the post now.
+	 * @param callable $current_fingerprint Returns the active design fingerprint.
+	 * @param bool     $has_image          Whether the stored image still exists.
+	 * @return bool
+	 */
+	public static function decide( $stored_hash, $stored_fingerprint, callable $current_hash, callable $current_fingerprint, $has_image ) {
+		if ( '' === $stored_hash || '' === $stored_fingerprint ) {
 			return true;
 		}
 
-		if ( '' === Post_Meta::image_url( $post_id ) ) {
+		if ( ! $has_image ) {
 			return true;
 		}
 
-		if ( $stored_fp !== Designs::fingerprint() ) {
+		if ( $stored_fingerprint !== $current_fingerprint() ) {
 			return true;
 		}
 
-		return $stored_hash !== Payload::content_hash( $post_id );
+		return $stored_hash !== $current_hash();
 	}
 
 	/**
@@ -222,7 +246,7 @@ class Generator {
 	/**
 	 * Store a failure and translate it for the caller.
 	 *
-	 * @param int                                $post_id  Post ID.
+	 * @param int                              $post_id  Post ID.
 	 * @param \Html2Img\WordPress\Api\Response $response Failed response.
 	 * @return array{status: string, message: string}
 	 */

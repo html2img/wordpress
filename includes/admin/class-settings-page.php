@@ -177,18 +177,18 @@ class Settings_Page {
 		$design           = isset( $input['design'] ) ? sanitize_key( $input['design'] ) : $current['design'];
 		$output['design'] = ( 'custom' === $design || isset( $designs[ $design ] ) ) ? $design : 'classic';
 
-		$accent                   = isset( $input['accent_color'] ) ? sanitize_hex_color( $input['accent_color'] ) : '';
-		$background               = isset( $input['background_color'] ) ? sanitize_hex_color( $input['background_color'] ) : '';
-		$output['accent_color']   = $accent ? $accent : $current['accent_color'];
+		$accent                     = isset( $input['accent_color'] ) ? sanitize_hex_color( $input['accent_color'] ) : '';
+		$background                 = isset( $input['background_color'] ) ? sanitize_hex_color( $input['background_color'] ) : '';
+		$output['accent_color']     = $accent ? $accent : $current['accent_color'];
 		$output['background_color'] = $background ? $background : $current['background_color'];
 
-		$output['logo_id']         = isset( $input['logo_id'] ) ? absint( $input['logo_id'] ) : 0;
-		$output['show_author']     = ! empty( $input['show_author'] );
-		$output['show_site_name']  = ! empty( $input['show_site_name'] );
-		$output['custom_template'] = isset( $input['custom_template'] ) ? self::sanitize_template( $input['custom_template'] ) : '';
-		$output['storage']         = isset( $input['storage'] ) && 'cdn' === $input['storage'] ? 'cdn' : 'media';
-		$output['always_override'] = ! empty( $input['always_override'] );
-		$output['show_in_media']   = ! empty( $input['show_in_media'] );
+		$output['logo_id']             = isset( $input['logo_id'] ) ? absint( $input['logo_id'] ) : 0;
+		$output['show_author']         = ! empty( $input['show_author'] );
+		$output['show_site_name']      = ! empty( $input['show_site_name'] );
+		$output['custom_template']     = isset( $input['custom_template'] ) ? self::sanitize_template( $input['custom_template'] ) : '';
+		$output['storage']             = isset( $input['storage'] ) && 'cdn' === $input['storage'] ? 'cdn' : 'media';
+		$output['always_override']     = ! empty( $input['always_override'] );
+		$output['show_in_media']       = ! empty( $input['show_in_media'] );
 		$output['delete_on_uninstall'] = ! empty( $input['delete_on_uninstall'] );
 
 		return $output;

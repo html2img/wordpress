@@ -68,9 +68,9 @@ class Editor {
 	 */
 	private static function js_config() {
 		return [
-			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'html2img_editor' ),
-			'hasKey'  => Options::has_api_key(),
+			'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+			'nonce'       => wp_create_nonce( 'html2img_editor' ),
+			'hasKey'      => Options::has_api_key(),
 			'settingsUrl' => Settings_Page::url(),
 		];
 	}
