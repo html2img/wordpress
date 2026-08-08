@@ -14,7 +14,7 @@ The plugin is feature complete against the brief and verified end to end on the 
 
 ## Decisions you may want to revisit
 
-- **Display name**: "HTML to Image: Dynamic Open Graph Images". The readme carries the other keyword variants.
+- **Display name**: "Auto OG Images - Open Graph & Social Image Generator by html2img". Keywords lead for directory search, the brand sits at the end. The slug stays `html2img`: it is permanent, it claims the brand namespace on wordpress.org and it marks this as the official companion plugin.
 - **dpi 2 by default** (2400x1260 output), matching the Statamic and Craft integrations. `html2img_dimensions` filters it.
 - **Regeneration replaces the attachment** (new file, new URL) rather than overwriting in place. Deliberate: Facebook caches og:image by URL, so a new URL is what busts a stale scrape.
 - **Requires PHP 7.4**, still 17.7 percent of WordPress installs. The code uses no 8.0-only syntax.

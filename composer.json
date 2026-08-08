@@ -1,6 +1,6 @@
 {
     "name": "html2img/wordpress",
-    "description": "HTML to Image: Dynamic Open Graph Images for WordPress",
+    "description": "Auto OG Images by html2img: automatic Open Graph and social share images for WordPress",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
     "require": {

@@ -77,7 +77,7 @@ class Notices {
 		?>
 		<div class="notice notice-info is-dismissible html2img-notice" data-html2img-notice="onboarding">
 			<p>
-				<strong><?php esc_html_e( 'HTML to Image', 'html2img' ); ?></strong>
+				<strong><?php esc_html_e( 'Auto OG Images', 'html2img' ); ?></strong>
 				&mdash;
 				<?php esc_html_e( 'Connect your HTML to Image account to start generating OG images automatically. New accounts get 50 free credits.', 'html2img' ); ?>
 				<a href="<?php echo esc_url( Settings_Page::url() ); ?>"><?php esc_html_e( 'Connect your account', 'html2img' ); ?></a>
@@ -110,7 +110,7 @@ class Notices {
 		?>
 		<div class="notice notice-warning">
 			<p>
-				<strong><?php esc_html_e( 'HTML to Image', 'html2img' ); ?></strong>
+				<strong><?php esc_html_e( 'Auto OG Images', 'html2img' ); ?></strong>
 				&mdash;
 				<?php
 				printf(
@@ -144,7 +144,7 @@ class Notices {
 		?>
 		<div class="notice notice-warning">
 			<p>
-				<strong><?php esc_html_e( 'HTML to Image', 'html2img' ); ?></strong>
+				<strong><?php esc_html_e( 'Auto OG Images', 'html2img' ); ?></strong>
 				&mdash;
 				<?php
 				printf(

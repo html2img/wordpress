@@ -10,7 +10,7 @@ If you would rather wire the API into WordPress yourself, the [dynamic OG images
 
 ## Install
 
-Install "HTML to Image: Dynamic Open Graph Images" from the WordPress plugin directory, or search for `html2img` on the Add Plugins screen. Activate it, open Settings, then OG Images, and paste an API key from your [dashboard](https://app.html2img.com/dashboard).
+Install "Auto OG Images - Open Graph & Social Image Generator by html2img" from the WordPress plugin directory, or search for `html2img` on the Add Plugins screen. Activate it, open Settings, then OG Images, and paste an API key from your [dashboard](https://app.html2img.com/dashboard).
 
 The plugin validates the key with a call to [`GET /api/me`](/docs/account/), which costs nothing, and then shows your plan and remaining credits on the settings screen.
 

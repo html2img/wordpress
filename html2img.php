@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: HTML to Image: Dynamic Open Graph Images
+ * Plugin Name: Auto OG Images - Open Graph & Social Image Generator by html2img
  * Plugin URI: https://html2img.com/docs/integrations/wordpress/
  * Description: Generates a unique Open Graph image for every post and page through the HTML to Image API. Pick a design, connect your account and publish.
  * Version: 1.0.0

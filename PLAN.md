@@ -65,7 +65,7 @@ Read in full. Same shape as Craft with a few differences that matter:
 ### 3.1 Naming and identity
 
 - Slug and text domain: `html2img`. Permanent, matches the repo.
-- Display name: **"HTML to Image: Dynamic Open Graph Images"**. The brand leads, the searched-for phrase follows. "OG image" and "social share image" variants go in the short description and tags where they count for search without cluttering the title. "for WordPress" adds nothing inside the WordPress directory.
+- Display name: **"Auto OG Images - Open Graph & Social Image Generator by html2img"** (revised 2026-08-08; originally "HTML to Image: Dynamic Open Graph Images"). Keywords lead because nobody with this problem searches "html to image"; the brand sits at the end, Site Kit style. The slug stays `html2img`: slugs carry almost no search weight, and the brand slug claims the wordpress.org namespace and marks the official companion plugin.
 - Namespace `Html2Img\WordPress`, PSR-4 autoloaded from `includes/`. Function, option, meta, hook and transient prefix `html2img_`. No Composer runtime dependencies (the PHP SDK exists but stays out), no Node build step, Gutenberg via plain JS and `wp.*` globals.
 - Requires PHP 7.4 (still 17.7 percent of WordPress installs; the code gains nothing from 8.0-only syntax). Requires at least WordPress 6.2, tested up to 7.0 (current release 7.0.3).
 

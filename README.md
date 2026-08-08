@@ -1,4 +1,4 @@
-# HTML to Image: Dynamic Open Graph Images for WordPress
+# Auto OG Images - Open Graph & Social Image Generator by html2img
 
 Generates a unique Open Graph image for every post and page through the [HTML to Image](https://html2img.com) API. Designs are rendered in a real Chrome browser, images land in the media library and the correct meta tags are output or handed to the active SEO plugin.
 

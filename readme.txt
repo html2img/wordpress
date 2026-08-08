@@ -1,4 +1,4 @@
-=== HTML to Image: Dynamic Open Graph Images ===
+=== Auto OG Images - Open Graph & Social Image Generator by html2img ===
 Contributors: html2img
 Tags: open graph, og image, social share image, twitter card, social image
 Requires at least: 6.2
