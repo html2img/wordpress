@@ -16,87 +16,146 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Onboarding, low credit and aggregated failure notices.
+ * Connect, low credit and aggregated failure notices.
+ *
+ * Everything here is confined to the plugin's own screens and the plugins
+ * list, so the rest of the dashboard is never interrupted.
  */
 class Notices {
+
+	/**
+	 * User meta holding the dismissal of the connect notice.
+	 */
+	const DISMISSED_META = 'html2img_notice_dismissed';
 
 	/**
 	 * Hook the notices and their dismissals.
 	 */
 	public static function register() {
 		add_action( 'admin_notices', [ __CLASS__, 'output' ] );
+		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'assets' ] );
 		add_action( 'wp_ajax_html2img_dismiss_notice', [ __CLASS__, 'dismiss' ] );
 	}
 
 	/**
-	 * Decide which notice, if any, this screen shows. One at a time is
-	 * plenty.
+	 * Screens this plugin may speak on: its own two pages and the plugins
+	 * list, where someone has just activated it.
+	 *
+	 * @return bool
 	 */
-	public static function output() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
+	private static function is_own_screen() {
+		if ( ! function_exists( 'get_current_screen' ) ) {
+			return false;
 		}
 
-		if ( ! Options::has_api_key() ) {
-			self::onboarding();
+		$screen = get_current_screen();
 
-			return;
+		if ( ! $screen ) {
+			return false;
 		}
 
-		$waiting = self::credits_waiting_count();
-
-		if ( $waiting > 0 ) {
-			self::out_of_credits( $waiting );
-
-			return;
-		}
-
-		self::maybe_low_credits();
+		return in_array(
+			$screen->id,
+			[ 'plugins', 'plugins-network', 'settings_page_' . Settings_Page::PAGE, 'tools_page_html2img-tools' ],
+			true
+		);
 	}
 
 	/**
-	 * Connect notice, dismissable per session but back next page load
-	 * until a key is saved.
+	 * Which notice, if any, the current screen should carry. One at a time
+	 * is plenty.
+	 *
+	 * @return string One of onboarding, credits, low_credits or an empty string.
+	 */
+	private static function current() {
+		if ( ! current_user_can( 'manage_options' ) || ! self::is_own_screen() ) {
+			return '';
+		}
+
+		if ( ! Options::has_api_key() ) {
+			return self::onboarding_due() ? 'onboarding' : '';
+		}
+
+		if ( self::credits_waiting_count() > 0 ) {
+			return 'credits';
+		}
+
+		return self::low_credits() ? 'low_credits' : '';
+	}
+
+	/**
+	 * The connect notice is skipped on the settings screen, where the key
+	 * field is already in front of the user, and stays gone once dismissed.
+	 *
+	 * @return bool
+	 */
+	private static function onboarding_due() {
+		$screen = get_current_screen();
+
+		if ( $screen && 'settings_page_' . Settings_Page::PAGE === $screen->id ) {
+			return false;
+		}
+
+		return ! get_user_meta( get_current_user_id(), self::DISMISSED_META, true );
+	}
+
+	/**
+	 * The dismissal script, loaded only on the screen that shows a
+	 * dismissable notice.
+	 */
+	public static function assets() {
+		if ( 'onboarding' !== self::current() ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'html2img-notice',
+			HTML2IMG_URL . 'assets/js/notice.js',
+			[],
+			HTML2IMG_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'html2img-notice',
+			'html2imgNotice',
+			[
+				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+				'nonce'   => wp_create_nonce( 'html2img_dismiss' ),
+			]
+		);
+	}
+
+	/**
+	 * Print the notice this screen earned.
+	 */
+	public static function output() {
+		switch ( self::current() ) {
+			case 'onboarding':
+				self::onboarding();
+				break;
+			case 'credits':
+				self::out_of_credits( self::credits_waiting_count() );
+				break;
+			case 'low_credits':
+				self::low_credits_notice();
+				break;
+		}
+	}
+
+	/**
+	 * Connect notice, dismissable for good.
 	 */
 	private static function onboarding() {
-		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-
-		if ( $screen && 'settings_page_html2img' === $screen->id ) {
-			return;
-		}
-
-		// Dismissal quiets the notice for a day. It keeps coming back until
-		// a key is saved, without being obnoxious about it.
-		$dismissed_at = (int) get_user_meta( get_current_user_id(), 'html2img_notice_dismissed', true );
-
-		if ( $dismissed_at && ( time() - $dismissed_at ) < DAY_IN_SECONDS ) {
-			return;
-		}
-
-		$url = 'https://html2img.com/?utm_source=wordpress-plugin&utm_medium=admin-notice&utm_campaign=onboarding';
 		?>
-		<div class="notice notice-info is-dismissible html2img-notice" data-html2img-notice="onboarding">
+		<div class="notice notice-info is-dismissible html2img-notice">
 			<p>
 				<strong><?php esc_html_e( 'Auto OG Images', 'html2img' ); ?></strong>
 				&mdash;
-				<?php esc_html_e( 'Connect your HTML to Image account to start generating OG images automatically. New accounts get 50 free credits.', 'html2img' ); ?>
+				<?php esc_html_e( 'Connect your HTML to Image account to start generating OG images automatically.', 'html2img' ); ?>
 				<a href="<?php echo esc_url( Settings_Page::url() ); ?>"><?php esc_html_e( 'Connect your account', 'html2img' ); ?></a>
-				|
-				<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Create an account', 'html2img' ); ?></a>
 			</p>
 		</div>
-		<script>
-			document.addEventListener( 'click', function ( event ) {
-				var notice = event.target.closest ? event.target.closest( '.html2img-notice' ) : null;
-				if ( ! notice || ! event.target.classList.contains( 'notice-dismiss' ) ) {
-					return;
-				}
-				var data = new FormData();
-				data.append( 'action', 'html2img_dismiss_notice' );
-				data.append( 'nonce', <?php echo wp_json_encode( wp_create_nonce( 'html2img_dismiss' ) ); ?> );
-				fetch( ajaxurl, { method: 'POST', credentials: 'same-origin', body: data } );
-			} );
-		</script>
 		<?php
 	}
 
@@ -106,7 +165,6 @@ class Notices {
 	 * @param int $waiting Number of posts in the failed_credits state.
 	 */
 	private static function out_of_credits( $waiting ) {
-		$upgrade = 'https://html2img.com/pricing?utm_source=wordpress-plugin&utm_medium=admin-notice&utm_campaign=out-of-credits';
 		?>
 		<div class="notice notice-warning">
 			<p>
@@ -119,28 +177,33 @@ class Notices {
 					esc_html( number_format_i18n( $waiting ) )
 				);
 				?>
-				<a href="<?php echo esc_url( $upgrade ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Top up your credits', 'html2img' ); ?></a>
+				<a href="https://app.html2img.com/dashboard" target="_blank" rel="noopener"><?php esc_html_e( 'Open your account dashboard', 'html2img' ); ?></a>
 			</p>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Low balance warning from the cached account data. Never triggers an
-	 * API call of its own.
+	 * Whether the cached account is running low. Never triggers an API call
+	 * of its own.
+	 *
+	 * @return bool
 	 */
-	private static function maybe_low_credits() {
+	private static function low_credits() {
 		$account = get_transient( Account::TRANSIENT );
 
 		if ( ! is_array( $account ) || $account['credits_remaining'] <= 0 ) {
-			return;
+			return false;
 		}
 
-		if ( $account['credits_remaining'] >= Account::low_credit_threshold( $account ) ) {
-			return;
-		}
+		return $account['credits_remaining'] < Account::low_credit_threshold( $account );
+	}
 
-		$upgrade = 'https://html2img.com/pricing?utm_source=wordpress-plugin&utm_medium=admin-notice&utm_campaign=low-credits';
+	/**
+	 * Low balance warning from the cached account data.
+	 */
+	private static function low_credits_notice() {
+		$account = get_transient( Account::TRANSIENT );
 		?>
 		<div class="notice notice-warning">
 			<p>
@@ -153,7 +216,7 @@ class Notices {
 					esc_html( number_format_i18n( $account['credits_remaining'] ) )
 				);
 				?>
-				<a href="<?php echo esc_url( $upgrade ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Top up your credits', 'html2img' ); ?></a>
+				<a href="https://app.html2img.com/dashboard" target="_blank" rel="noopener"><?php esc_html_e( 'Open your account dashboard', 'html2img' ); ?></a>
 			</p>
 		</div>
 		<?php
@@ -196,7 +259,7 @@ class Notices {
 	}
 
 	/**
-	 * Ajax dismissal for the onboarding notice.
+	 * Ajax dismissal for the connect notice.
 	 */
 	public static function dismiss() {
 		check_ajax_referer( 'html2img_dismiss', 'nonce' );
@@ -205,7 +268,7 @@ class Notices {
 			wp_send_json_error();
 		}
 
-		update_user_meta( get_current_user_id(), 'html2img_notice_dismissed', time() );
+		update_user_meta( get_current_user_id(), self::DISMISSED_META, time() );
 		wp_send_json_success();
 	}
 }

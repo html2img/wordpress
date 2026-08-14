@@ -4,7 +4,7 @@ Tags: open graph, og image, social share image, twitter card, social image
 Requires at least: 6.2
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Generate a unique Open Graph image for every post and page automatically. Pick a
 Links shared without an image get scrolled past. This plugin gives every post and page its own share image, generated from the post title, author and featured image the moment you publish. No design work per post, no image editor, no template plugin to fight with.
 
 Rendering happens through the [HTML to Image](https://html2img.com/?utm_source=wordpress-plugin&utm_medium=readme&utm_campaign=description) API, which draws each card in a real Chrome browser. Real browser rendering means proper fonts, emoji in titles and photographic featured images all come out right.
+
+Full documentation is at [html2img.com/docs/integrations/wordpress](https://html2img.com/docs/integrations/wordpress/).
 
 = How it works =
 
@@ -118,6 +120,12 @@ HTML to Image is operated by html2img.com: [terms of service](https://html2img.c
 
 == Changelog ==
 
+= 1.1.0 =
+* Admin notices now appear only on the plugin's own screens and the plugins list, never on the rest of the dashboard.
+* Dismissing the connect notice is permanent.
+* Notices link to your account dashboard rather than the pricing page.
+* Admin scripts and styles are enqueued rather than printed inline.
+
 = 1.0.0 =
 * First release.
 * Five bundled designs with accent colour, logo and author toggles.
@@ -128,6 +136,9 @@ HTML to Image is operated by html2img.com: [terms of service](https://html2img.c
 * Custom HTML template support with documented placeholders.
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Quieter admin notices, confined to the plugin's own screens.
 
 = 1.0.0 =
 First release.

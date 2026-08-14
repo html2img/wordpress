@@ -38,7 +38,7 @@ $html2img_signup = 'https://html2img.com/?utm_source=wordpress-plugin&utm_medium
 				<td>
 					<?php if ( Options::has_api_key() ) : ?>
 						<code><?php echo esc_html( '••••••••' . substr( Options::api_key(), -4 ) ); ?></code>
-						<label style="margin-left:12px;">
+						<label class="html2img-inline-after">
 							<input type="checkbox" name="<?php echo esc_attr( $html2img_option ); ?>[remove_key]" value="1" />
 							<?php esc_html_e( 'Remove this key', 'html2img' ); ?>
 						</label>
@@ -105,7 +105,7 @@ $html2img_signup = 'https://html2img.com/?utm_source=wordpress-plugin&utm_medium
 
 					foreach ( $html2img_types as $html2img_type ) :
 						?>
-						<label style="margin-right:16px;">
+						<label class="html2img-inline-option">
 							<input type="checkbox"
 								name="<?php echo esc_attr( $html2img_option ); ?>[post_types][]"
 								value="<?php echo esc_attr( $html2img_type->name ); ?>"
@@ -126,7 +126,7 @@ $html2img_signup = 'https://html2img.com/?utm_source=wordpress-plugin&utm_medium
 				<td>
 					<fieldset id="html2img-designs">
 						<?php foreach ( $designs as $html2img_slug => $html2img_design ) : ?>
-							<label style="margin-right:16px;">
+							<label class="html2img-inline-option">
 								<input type="radio" name="<?php echo esc_attr( $html2img_option ); ?>[design]"
 									value="<?php echo esc_attr( $html2img_slug ); ?>"
 									<?php checked( $settings['design'], $html2img_slug ); ?> />
@@ -158,7 +158,7 @@ $html2img_signup = 'https://html2img.com/?utm_source=wordpress-plugin&utm_medium
 					</p>
 					<div id="html2img-test-result" hidden>
 						<p><?php esc_html_e( 'Rendered by the API:', 'html2img' ); ?></p>
-						<img src="" alt="<?php esc_attr_e( 'API test render', 'html2img' ); ?>" style="max-width:600px;height:auto;" />
+						<img src="" alt="<?php esc_attr_e( 'API test render', 'html2img' ); ?>" />
 					</div>
 					<p class="description"><?php esc_html_e( 'The preview is drawn by your browser and costs nothing. Unsaved changes on this screen are included.', 'html2img' ); ?></p>
 				</td>

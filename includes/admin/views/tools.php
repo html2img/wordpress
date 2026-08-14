@@ -89,7 +89,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div id="html2img-bulk-progress" hidden>
 			<p id="html2img-bulk-message"></p>
-			<div class="html2img-progress-track"><div class="html2img-progress-bar" style="width:0"></div></div>
+			<div class="html2img-progress-track"><div class="html2img-progress-bar"></div></div>
 			<p>
 				<button type="button" class="button" id="html2img-bulk-stop"><?php esc_html_e( 'Stop after this batch', 'html2img' ); ?></button>
 			</p>

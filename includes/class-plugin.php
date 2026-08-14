@@ -69,7 +69,7 @@ class Plugin {
 	 */
 	public static function activate() {
 		if ( ! Options::has_api_key() ) {
-			delete_user_meta( get_current_user_id(), 'html2img_notice_dismissed' );
+			delete_user_meta( get_current_user_id(), Notices::DISMISSED_META );
 		}
 	}
 

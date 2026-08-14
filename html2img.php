@@ -3,7 +3,7 @@
  * Plugin Name: Auto OG Images - Open Graph & Social Image Generator by html2img
  * Plugin URI: https://html2img.com/docs/integrations/wordpress/
  * Description: Generates a unique Open Graph image for every post and page through the HTML to Image API. Pick a design, connect your account and publish.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Requires at least: 6.2
  * Requires PHP: 7.4
  * Author: HTML to Image
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'HTML2IMG_VERSION', '1.0.0' );
+define( 'HTML2IMG_VERSION', '1.1.0' );
 define( 'HTML2IMG_FILE', __FILE__ );
 define( 'HTML2IMG_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HTML2IMG_URL', plugin_dir_url( __FILE__ ) );
