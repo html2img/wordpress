@@ -2,7 +2,7 @@
 
 Generates a unique Open Graph image for every post and page through the [HTML to Image](https://html2img.com) API. Designs are rendered in a real Chrome browser, images land in the media library and the correct meta tags are output or handed to the active SEO plugin.
 
-This is the source repository for the [html2img plugin on wordpress.org](https://wordpress.org/plugins/html2img/). For user documentation see the [WordPress integration guide](https://html2img.com/docs/integrations/wordpress/).
+This is the source repository for the [html2img plugin on wordpress.org](https://wordpress.org/plugins/html2img/). For user documentation see the [WordPress integration guide](https://html2img.com/integrations/wordpress/).
 
 ## How generation is decided
 

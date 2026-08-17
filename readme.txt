@@ -16,7 +16,7 @@ Links shared without an image get scrolled past. This plugin gives every post an
 
 Rendering happens through the [HTML to Image](https://html2img.com/?utm_source=wordpress-plugin&utm_medium=readme&utm_campaign=description) API, which draws each card in a real Chrome browser. Real browser rendering means proper fonts, emoji in titles and photographic featured images all come out right.
 
-Full documentation is at [html2img.com/docs/integrations/wordpress](https://html2img.com/docs/integrations/wordpress/).
+Full documentation is at [html2img.com/integrations/wordpress](https://html2img.com/integrations/wordpress/).
 
 = How it works =
 
