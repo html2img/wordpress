@@ -114,7 +114,7 @@ A local test site with ddev, mounting this directory as the plugin, is described
 
 ## API
 
-The plugin talks to two endpoints of the [HTML to Image API](https://html2img.com/docs/): `GET /api/me` for account status and key validation and `POST /api/html` for renders. Authentication is an `X-API-Key` header. The key is stored in the `html2img_settings` option and never reaches the front end or any script context.
+The plugin talks to two endpoints of the [HTML to Image API](https://html2img.com/): `GET /api/me` for account status and key validation and `POST /api/html` for renders. Authentication is an `X-API-Key` header. The key is stored in the `html2img_settings` option and never reaches the front end or any script context. The full reference is in the [API documentation](https://html2img.com/docs/).
 
 ## Licence
 
