@@ -45,15 +45,15 @@ The `/me` endpoint closed the big anticipated gap, so nothing here blocks the pl
 
 Also worth knowing: accounts on the app's admin list bypass billing entirely. The test account is one of them, so out of credits paths can never fire live with it; they are covered by unit tests against the documented 402 envelope.
 
-## wordpress.org submission steps
+## wordpress.org submission and releases
 
 1. Create the plugin zip: rsync the tree minus `.distignore` entries into a folder named `html2img`, then in the copy only (never in the repo) change both the `Plugin Name:` header in html2img.php and the `=== title ===` line in readme.txt to plain `html2img`, and zip it.
 
    The slug is not a field you fill in: wordpress.org generates it from the `Plugin Name:` header in the submitted zip, exactly like a post name, and freezes it at approval. Submitting with the full display name would produce the slug `auto-og-images-open-graph-social-image-generator-by-html2img`. Submitting as `html2img` gives the slug `html2img`; the display name is read from whatever is committed to SVN afterwards and can change at any time, so the first SVN commit (step 3, using the repo tree unmodified) is what puts "Auto OG Images - Open Graph & Social Image Generator by html2img" on the plugin page. Both files are patched together because Plugin Check warns when the header and readme titles disagree.
 2. Submit at wordpress.org/plugins/developers/add/ under the account that will own the plugin. The review queue currently runs a few weeks.
-3. On approval you get SVN access. `trunk/` takes the `.distignore`-filtered file set, with the full display name intact: `rsync -a --exclude-from=.distignore ./ <svn>/trunk/` from the repo root, never a wholesale copy of the repo (SVN does not read `.distignore`; only the build step does, so whatever lands in trunk ships). `tags/1.1.0/` takes the release copy, `assets/` takes everything in `assets-wporg/` (banner-772x250.png, banner-1544x500.png, icon-128x128.png, icon-256x256.png, screenshot-1.png through screenshot-6.png).
+3. Approved 18 August 2026; the `html2img` account has commit access to https://plugins.svn.wordpress.org/html2img. Nobody touches SVN by hand: `.github/workflows/deploy-wporg.yml` produces the layout wordpress.org expects (the `.distignore`-filtered tree into `trunk/`, a release copy into `tags/x.y.z/`, everything in `assets-wporg/` into `assets/`) via the 10up deploy action. It needs the `SVN_USERNAME` and `SVN_PASSWORD` repository secrets, set once in the GitHub repo settings; the password comes from the wordpress.org profile's Account & Security screen, not the account login.
 4. Screenshot captions live in readme.txt under == Screenshots == and map by number.
-5. After it is live, tag releases by copying trunk to `tags/x.y.z` and bumping `Stable tag`.
+5. To release: bump the three version strings (`Stable tag` in readme.txt, the `Version:` header and `HTML2IMG_VERSION` in html2img.php), add a changelog entry, land it on `main`, then `git tag vx.y.z && git push origin vx.y.z`. The workflow fails fast if the three versions and the tag disagree. "Run workflow" in the Actions tab is always a dry run: it builds everything and prints what would be committed to SVN without committing.
 
 ## Known limitations
 

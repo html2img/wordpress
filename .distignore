@@ -1,5 +1,6 @@
 .distignore
 .git
+.github
 .gitignore
 .phpcs-cache
 .phpunit.result.cache
